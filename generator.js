@@ -6,8 +6,8 @@ function generateDocument(elements) {
   out.push("---\n");
 
   out.push("## Chronological sequence of method calls\n");
-  out.push("| # | Timestamp | Called from file | Method | Consecutive calls | Additional Info |");
-  out.push("|---|-----------|-----------------|--------|:-----------------:|-----------------|");
+  out.push("| # | Timestamp | Called from file | Line | Method | Consecutive calls | Additional Info |");
+  out.push("|---|-----------|-----------------|:----:|--------|:-----------------:|-----------------|");
 
   let rowNum = 0;
   elements.forEach((el) => {
@@ -16,7 +16,7 @@ function generateDocument(elements) {
     const info = el.additionalInfo ? el.additionalInfo.replace(/\r/g, "").trim() : "";
     const repeatCell = el.count > 1 ? `⚠️ x${el.count}` : "";
     out.push(
-      `| ${rowNum} | \`${el.timestamp}\` | \`${el.calledByFile}\` | \`${el.class}::${el.method}\` | ${repeatCell} | ${info} |`
+      `| ${rowNum} | \`${el.timestamp}\` | \`${el.calledByFile}\` | ${el.calledInLine} | \`${el.class}::${el.method}\` | ${repeatCell} | ${info} |`
     );
   });
 
